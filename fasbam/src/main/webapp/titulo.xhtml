@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/layout/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+		<h:outputScript library="fasbam/keyboard" name="keyboard.js" />
+		<h:outputStylesheet library="fasbam/keyboard" name="keyboard.css" />
+		<f:metadata>
+			<f:viewAction action="#{tituloBean.detalhes}" />
+		</f:metadata>
+
+		<div id="conteudo">
+			<h:form id="frm">
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton icon="ui-icon-back" value="Voltar"
+							action="#{tituloBean.voltar}" />
+						<p:commandButton icon="ui-icon-search" value="Nova Busca"
+							action="#{tituloBean.novaBusca}" />
+					</f:facet>
+				</p:toolbar>
+				<p:layout style="min-height:600px; padding: 20px 5px;">
+					<p:layoutUnit position="west" style="max-width: 40%;">
+						<p:panelGrid columns="2" columnClasses="titulo-descricao">
+							<f:facet name="header">
+								<h:outputText value="Detalhes sobre o livro" />
+							</f:facet>
+
+							<h:outputText value="Número de Chamada:" styleClass="floatright" />
+							<h:outputText value="#{tituloBean.tituloDetalhe.numeroChamada}" />
+
+							<h:outputText value="Número do Acervo:" styleClass="floatright"/>
+							<h:outputText value="#{tituloBean.tituloDetalhe.codigo}" />
+
+							<h:outputText value="Autor Principal:" styleClass="floatright"/>
+							<ui:repeat var="autor"
+								value="#{tituloBean.tituloDetalhe.lstAutores}">
+
+
+								<p:commandLink rendered="#{autor.principal == 1}"
+									action="#{tituloBean.pesquisaAutor}" value="#{autor.nome}"
+									style="color: blue;">
+									<f:setPropertyActionListener
+										target="#{tituloBean.textoPesquisa}" value="#{autor.nome}" />
+								</p:commandLink>
+
+							</ui:repeat>
+
+							<h:outputText value="Autor(es) Secundário(s):" styleClass="floatright"/>
+
+							<ui:repeat var="autor"
+								value="#{tituloBean.tituloDetalhe.lstAutores}">
+
+								<p:commandLink rendered="#{autor.principal == 0}"
+									action="#{tituloBean.pesquisaAutor}" value="#{autor.nome}"
+									style="color: blue;">
+									<f:setPropertyActionListener
+										target="#{tituloBean.textoPesquisa}" value="#{autor.nome}" />
+								</p:commandLink>
+								<!-- 								<h:outputText rendered="#{autor.principal == 0}" -->
+								<!-- 									value="#{autor.nome}" /> -->
+								<br />
+							</ui:repeat>
+
+
+							<h:outputText value="Título Principal:" styleClass="floatright"/>
+							<h:outputText value="#{tituloBean.tituloDetalhe.titulo}" />
+
+							<h:outputText value="Subtítulo:" styleClass="floatright"/>
+							<h:outputText value="#{tituloBean.tituloDetalhe.subTitulo}" />
+
+							<h:outputText value="Publicação:" styleClass="floatright"/>
+							<h:outputText
+								value="#{tituloBean.tituloDetalhe.localPublicacao} / #{tituloBean.tituloDetalhe.anoPublicacao} " />
+
+							<h:outputText value="Edição:" styleClass="floatright"/>
+							<h:outputText
+								value="#{tituloBean.tituloDetalhe.numeroEdicao != '0' ? tituloBean.tituloDetalhe.numeroEdicao : ''}#{tituloBean.tituloDetalhe.numeroEdicao != '0' ? 'ed.' : ''}" />
+
+							<h:outputText value="Tipo:" styleClass="floatright"/>
+							<h:outputText value="#{tituloBean.tituloDetalhe.tipoTitulo.nome}" />
+
+							<h:outputText value="Editora:" styleClass="floatright"/>
+							<h:outputText
+								value="#{tituloBean.tituloDetalhe.editoraTitulo.nome}" />
+
+							<h:outputText value="Número de Páginas:" styleClass="floatright"/>
+							<h:outputText value="#{tituloBean.tituloDetalhe.descricaoFisica}" />
+
+							<h:outputText value="Idioma:" styleClass="floatright"/>
+							<h:outputText
+								value="#{tituloBean.tituloDetalhe.idiomaTitulo.nomeIdioma}" />
+
+							<h:outputText value="Periodicidade:" styleClass="floatright"/>
+							<h:outputText value="#{tituloBean.tituloDetalhe.periodicidade}" />
+
+							<h:outputText value="ISBN:" styleClass="floatright"/>
+							<h:outputText value="#{tituloBean.tituloDetalhe.isbn}" />
+
+							<h:outputText value="Assuntos:" styleClass="floatright"/>
+							<ui:repeat var="assunto"
+								value="#{tituloBean.tituloDetalhe.lstAssunto}">
+								<p:commandLink action="#{tituloBean.pesquisaAssunto}"
+									value="#{assunto.nome}" style="color: blue;">
+									<f:setPropertyActionListener
+										target="#{tituloBean.textoPesquisa}" value="#{assunto.nome}" />
+								</p:commandLink>
+								<br />
+							</ui:repeat>
+
+
+						</p:panelGrid>
+					</p:layoutUnit>
+
+					<p:layoutUnit position="center">
+						<p:tabView>
+							<p:tab title="Referências">
+								#{tituloBean.tituloDetalhe.autorTitulo.nome} <b>#{tituloBean.tituloDetalhe.titulo}
+									#{tituloBean.tituloDetalhe.subTitulo}</b>.
+								#{tituloBean.tituloDetalhe.numeroEdicao != '0' ? tituloBean.tituloDetalhe.numeroEdicao : ''}#{tituloBean.tituloDetalhe.numeroEdicao != '0' ? 'ed.' : ''} #{tituloBean.tituloDetalhe.localPublicacao}: #{tituloBean.tituloDetalhe.editoraTitulo.nome}, #{tituloBean.tituloDetalhe.anoPublicacao}. #{tituloBean.tituloDetalhe.descricaoFisica}p.
+						</p:tab>
+							<p:tab title="Exemplares">
+								<p:dataTable var="exemplar"
+									value="#{tituloBean.tituloDetalhe.lstExemplar}">
+									<p:column headerText="Codigo"
+										style="font-size: 13px; font-weight: bolder; text-align: center;">
+										<h:outputText value="#{exemplar.codigo}" />
+									</p:column>
+									<p:column headerText="Volume"
+										style="font-size: 13px; font-weight: bolder; text-align: center;">
+										<h:outputText value="" />
+									</p:column>
+									<p:column headerText="Tipo Emprestimo"
+										style="font-size: 13px; font-weight: bolder; text-align: center;">
+										<h:outputText value="" />
+									</p:column>
+									<p:column headerText="Localização"
+										style="font-size: 13px; font-weight: bolder; text-align: center;">
+										<h:outputText value="#{exemplar.status}" />
+									</p:column>
+									<p:column headerText="Empréstimo"
+										style="font-size: 13px; font-weight: bolder; text-align: center;">
+										<h:outputText value="" />
+									</p:column>
+									<p:column headerText="Devolução"
+										style="font-size: 13px; font-weight: bolder; text-align: center;">
+										<h:outputText value="" />
+									</p:column>
+									<p:column headerText="Artigos"
+										style="font-size: 13px; font-weight: bolder; text-align: center;">
+										<h:outputText value="" />
+									</p:column>
+								</p:dataTable>
+							</p:tab>
+							<p:tab title="Reserva">
+						Função de reserva em breve disponível
+					</p:tab>
+						</p:tabView>
+					</p:layoutUnit>
+				</p:layout>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

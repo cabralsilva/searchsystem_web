@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/layout/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+		<h:outputScript library="fasbam/keyboard" name="keyboard.js" />
+		<h:outputStylesheet library="fasbam/keyboard" name="keyboard.css" />
+		<f:metadata>
+			<f:viewAction action="#{listSessaoBean.buscarLista}" />
+		</f:metadata>
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="fasbam/loading.gif" />
+		</p:dialog>
+		<h:form id="frm" class="form-search">
+
+			
+			<p:messages id="msgs" closable="true" />
+
+
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton icon="ui-icon-back" value="Voltar"
+							action="#{listSessaoBean.voltar}" />
+
+					<span class="ui-separator"> <span
+						class="ui-icon ui-icon-grip-dotted-vertical" />
+					</span>
+					
+					<p:commandButton icon="ui-icon-search" value="Nova Busca"
+							action="#{listSessaoBean.novaBusca}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton value="Imprimir" type="button" icon="ui-icon-print">
+					    <p:printer target="titulos-table" />
+					</p:commandButton>
+				</f:facet>
+			</p:toolbar>
+			<p:dataTable var="titulo" value="#{listSessaoBean.listSessao}" selection="#{listSessaoBean.listSelecionados}" rowSelectMode="checkbox" 
+				paginator="true" emptyMessage="Nenhuma titulo encontrado." rowKey="#{titulo.codigo}"
+				rows="25" rowsPerPageTemplate="5,10,15,25" paginatorPosition="top" style="margin-top: 10px" id="titulos-table"
+				>
+				<p:ajax event="rowUnselectCheckbox" listener="#{listSessaoBean.onRowUnSelectCheckbox}"/>
+				<p:ajax event="toggleSelect" listener="#{listSessaoBean.onAllSelect}"/>
+				<p:column selectionMode="multiple"
+					style="width:50px;text-align:center" />	
+				<p:column headerText="Acervo">
+				<b style="color: #0e4924;">#{titulo.titulo} - #{titulo.subTitulo}</b> - <b>#{titulo.tipoTitulo.nome}</b> - acervo - #{titulo.codigo}<br/>
+					#{titulo.autorTitulo.nome} <b>#{titulo.titulo}
+						#{titulo.subTitulo}</b>.
+					#{titulo.numeroEdicao != '0' ? titulo.numeroEdicao : ''}#{titulo.numeroEdicao != '0' ? 'ed.' : ''} #{titulo.localPublicacao}: #{titulo.editoraTitulo.nome}, #{titulo.anoPublicacao}. #{titulo.descricaoFisica}p.<br />
+					Número de Chamada: #{titulo.numeroChamada}
+				</p:column>
+				<p:column style="width:50px;text-align: center">
+					<p:commandButton action="#{listSessaoBean.pegarSelecionado}"
+						onclick="this.form.target='_blank'" icon="ui-icon-search"
+						title="View">
+						<f:setPropertyActionListener target="#{listSessaoBean.tituloSelected}"
+							value="#{titulo}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,187 @@
+@CHARSET "UTF-8";
+
+.container {
+	margin-top: 25px;
+}
+
+body {
+	color: #000000;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.5em;
+	margin: 0 0 0 0;
+}
+
+@media ( max-width : 768px) {
+	header {
+		background-image:
+			url(#{request.contextPath}/resources/fasbam/cabecalho.jpg);
+		border-bottom: 1px solid #0e4924;
+		height: 176px;
+		position: relative;
+		width: auto;
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center;
+	}
+}
+
+@media ( min-width : 768px) {
+	header {
+		background-image:
+			url(#{request.contextPath}/resources/fasbam/cabecalho.jpg);
+		border-bottom: 1px solid #0e4924;
+		height: 176px;
+		position: relative;
+		width: auto;
+	}
+}
+
+header form fieldset label input {
+	width: 210px;
+}
+
+header h1 {
+	background: url(#{request.contextPath}/resources/fasbam/logo.png)
+		no-repeat;
+	display: inline;
+	float: left;
+	height: 137px;
+	margin-left: 28px;
+	margin-top: 5px;
+	text-indent: -9999px;
+	width: 372px;
+}
+
+.form_login {
+	background-image:
+		url(#{request.contextPath}/resources/fasbam/fundo-form-biblioteca.jpg);
+	float: left;
+	margin-top: 25px;
+	margin-left: 371px;
+	padding: 5px;
+	width: 219px;
+}
+
+header form {
+	background:
+		url(#{request.contextPath}/resources/fasbam/fundo-form-biblioteca.jpg);
+	float: right;
+	padding: 8px;
+	width: 240px;
+}
+
+header form p {
+	color: #FFFFFF;
+	padding-left: 5px;
+}
+
+header form fieldset label .button-biblioteca {
+	background: url(#{request.contextPath}/resources/fasbam/btn-login.jpg)
+		no-repeat;
+	border: none;
+	cursor: pointer;
+	height: 21px;
+	margin-top: 5px;
+	width: 64px;
+}
+
+header form fieldset label span a {
+	color: white;
+}
+
+footer {
+	background: url(#{request.contextPath}/resources/fasbam/rodape.jpg)
+		center no-repeat;
+	/*     float: left; */
+	height: 160px;
+	margin-top: 10px;
+	width: auto;
+}
+
+footer address {
+	color: #FFFFFF;
+	float: left;
+	font-style: normal;
+	height: 140px;
+	margin-left: 40px;
+	margin-top: 10px;
+	width: 215px;
+}
+
+footer address span {
+	border-bottom: 1px solid #FFFFFF;
+	display: block;
+	width: 215px;
+}
+
+footer .menu-rodape {
+	display: inline;
+	float: left;
+	margin-left: 35px;
+	width: 200px;
+}
+
+footer h2 {
+	background: url(#{request.contextPath}/resources/fasbam/logo.png)
+		no-repeat;
+	display: inline;
+	float: left;
+	height: 137px;
+	margin-left: 25px;
+	margin-top: 5px;
+	text-indent: -9999px;
+	width: 220px;
+}
+
+footer .menu-rodape ul {
+	color: #FFFFFF;
+	margin-top: 8px;
+	padding-left: 10px;
+}
+
+footer .menu-rodape ul li a {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+	width: 25px !important;
+}
+
+.form-center {
+	margin: 0 auto;
+	border: none;
+}
+
+.form-search {
+	padding: 20px 10px;
+}
+
+.center {
+	text-align: center;
+}
+
+.ui-panelgrid>*>tr, .ui-panelgrid .ui-panelgrid-cell {
+	border: none !important;
+}
+
+.left {
+	text-align: left;
+}
+
+.right {
+	text-align: right;
+}
+
+.titulo-descricao {
+	float: right;
+	font-size: 13px;
+	font-weight: bolder;
+	vertical-align: top;
+	min-width: 170px;
+}
+
+.floatright{
+	float: right;
+}
